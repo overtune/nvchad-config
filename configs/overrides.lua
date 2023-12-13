@@ -40,6 +40,16 @@ M.mason = {
   },
 }
 
+-- nvimtree on attach callback 
+local function on_attach(bufnr)
+  local api = require "nvim-tree.api"
+  -- default mappings
+  api.config.mappings.default_on_attach(bufnr)
+
+  -- custom mappings
+  vim.keymap.set('n', 's', api.node.open.vertical, { buffer = bufnr })
+end
+
 -- git support in nvimtree
 M.nvimtree = {
   git = {
@@ -55,11 +65,7 @@ M.nvimtree = {
     },
   },
 
-  -- view = {
-  --   mappings = {
-  --     ["s"] = "open_vsplit",
-  --   }
-  -- }
+  on_attach = on_attach
 }
 
 return M
